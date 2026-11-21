@@ -1,0 +1,7 @@
+% Set index entries to normal text size.
+item_0 "\n  \\item \\normalsize "
+
+% Fill available space before page numbers with dots.
+delim_0 "\\dotfill "
+delim_1 "\\dotfill "
+delim_2 "\\dotfill "

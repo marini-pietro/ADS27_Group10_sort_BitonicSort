@@ -1,0 +1,153 @@
+\documentclass[12pt]{article} 
+\usepackage{imakeidx}
+\usepackage{graphicx}
+\usepackage{soul}
+\usepackage{hyperref}
+
+% Keep hyperlink text black and remove PDF link-border boxes.
+\hypersetup{
+  colorlinks=true,
+  linkcolor=black,
+  urlcolor=black,
+  citecolor=black
+}
+
+% Make link underlines blue while keeping the text black.
+\setulcolor{blue}
+
+\title{An historical and mathematical analysis of Bitonic sort}
+\author{Pietro Marini, Michele Riolfi, Javidan Tahmazli}
+\date{November 2026}
+
+% To add a heading to the index, place its matching index command immediately after the heading and its unique \label. Use \indexsection{KEY}{LABEL}{TITLE}
+
+% The section key describes the order among entries at the same level.
+% This must be consistent with the way the sections appear in the rest of the document.
+
+% For a section; write as the KEY a three-digit number that sets its order (001, 002, 003, ...). 
+
+% Use \indexsubsection{SECTION-KEY}{SECTION-LABEL}{SECTION-TITLE}
+% {SUBSECTION-KEY}{SUBSECTION-LABEL}{SUBSECTION-TITLE} for a subsection, and \indexsubsubsection with those same section and subsection details followed by  the subsubsection's key, label, and title. 
+
+% Number subsection keys in the desired order within their section, and subsubsection keys within their subsection. Keep each key consistent between the parent heading and its children; make every label unique. The title arguments should match the heading text, since they are what readers see in the index.
+
+% Use one column and the custom style file.
+\makeindex[columns=1, options= -s indexstyle.ist]
+
+% Override article's default two-column index layout.
+% Because we are generating the .ind file and then inserting it, \makeindex[column=1, ...] doesn't work by itself.
+% In fact, it is redundant but kept for clarity.
+\makeatletter
+\renewenvironment{theindex}
+  {%
+    \clearpage
+    \section*{\indexname}%
+    \@mkboth{\MakeUppercase\indexname}{\MakeUppercase\indexname}%
+    \thispagestyle{plain}%
+    \parindent\z@
+    \parskip\z@ plus .3\p@\relax
+    \let\item\@idxitem
+    \normalsize
+  }
+  {\clearpage}
+\makeatother
+
+% Keep linked page numbers together on one line.
+\let\OriginalHyperpage\hyperpage
+\renewcommand*{\hyperpage}[1]{\mbox{\OriginalHyperpage{#1}}}
+
+\setcounter{secnumdepth}{0} % Suppress heading numbers
+\renewcommand{\indexname}{Index}
+
+% Add a section entry.
+% #1 is its numeric sort key; #2 its label; #3 its displayed title.
+\newcommand{\indexsection}[3]{%
+  \index{#1@\hyperref[#2]{\ul{#3}}}%
+}
+
+% Add a subsection beneath its parent section.
+% Arguments are: section key, label, title; subsection key, label, title.
+\newcommand{\indexsubsection}[6]{%
+  \index{#1@\hyperref[#2]{\ul{#3}}!%
+    #4@\hyperref[#5]{\ul{#6}}}%
+}
+
+% Add a subsubsection beneath its parent subsection.
+% Arguments are: section key, label, title;
+% subsection key, label, title; subsubsection key, label, title.
+\newcommand{\indexsubsubsection}[9]{%
+  \index{#1@\hyperref[#2]{\ul{#3}}!%
+    #4@\hyperref[#5]{\ul{#6}}!%
+    #7@\hyperref[#8]{\ul{#9}}}%
+}
+
+\begin{document}
+
+\maketitle
+\clearpage % Force new page
+
+% Insert index.
+% \printindex by itself does not work because the package only allows for the index to be at the end.
+% This workaround solution makes it so MakeIndex is ran after the LaTex pass and then the generated .ind file is output in page 2.
+% The two \clearpage are there just so the index has a dedicated page.
+\clearpage
+\IfFileExists{\jobname.ind}{\input{\jobname.ind}}{}
+\clearpage
+
+\section{History}\phantomsection\label{sec:history}
+\indexsection{001}{sec:history}{History}
+
+\subsection{Original paper}\phantomsection\label{subsec:original-paper}
+\indexsubsection{001}{sec:history}{History}
+                 {001}{subsec:original-paper}{Original paper}
+
+The \href{https://dl.acm.org/doi/epdf/10.1145/1468075.1468121}
+{\ul{original paper}} is hosted by the Association for Computing Machinery
+digital library.
+
+\subsection{Related context, terminology and developments}
+\phantomsection\label{subsec:related-context}
+\indexsubsection{001}{sec:history}{History}
+                 {002}{subsec:related-context}
+                 {Related context, terminology and developments}
+
+\subsection{Necessity and details}
+\phantomsection\label{subsec:necessity}
+\indexsubsection{001}{sec:history}{History}
+                 {003}{subsec:necessity}{Necessity and details}
+
+\subsection{Historical reconstruction and implementation}
+\phantomsection\label{subsec:historical-reconstruction}
+\indexsubsection{001}{sec:history}{History}
+                 {004}{subsec:historical-reconstruction}
+                 {Historical reconstruction and implementation}
+
+\section{Validation and analysis}\phantomsection\label{sec:validation}
+\indexsection{002}{sec:validation}{Validation and analysis}
+
+\subsection{Theoretical analysis}
+\phantomsection\label{subsec:theoretical-analysis}
+\indexsubsection{002}{sec:validation}{Validation and analysis}
+                 {001}{subsec:theoretical-analysis}{Theoretical analysis}
+
+\subsection{Practical analysis}
+\phantomsection\label{subsec:practical-analysis}
+\indexsubsection{002}{sec:validation}{Validation and analysis}
+                 {002}{subsec:practical-analysis}{Practical analysis}
+
+\subsection{Complexity and performance analysis}
+\phantomsection\label{subsec:complexity}
+\indexsubsection{002}{sec:validation}{Validation and analysis}
+                 {003}{subsec:complexity}{Complexity and performance analysis}
+
+\subsubsection{Chosen experiments and related info}
+\phantomsection\label{subsubsec:experiments}
+\indexsubsubsection{002}{sec:validation}{Validation and analysis}
+                    {003}{subsec:complexity}{Complexity and performance analysis}
+                    {001}{subsubsec:experiments}{Chosen experiments and related info}
+
+\section{Reality check, evolution and legacy}
+\phantomsection\label{sec:reality-check}
+\indexsection{003}{sec:reality-check}{Reality check, evolution and legacy}
+
+\end{document}
