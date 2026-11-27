@@ -1,0 +1,2 @@
+Dummy file to make Git track this folder.
+Remove when beginning to implement tests
