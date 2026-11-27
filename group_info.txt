@@ -1,0 +1,8 @@
+Group number: 10
+Group members: 
+    - Pietro Marini 263332
+    - Michele Riolfi 265134
+    - Javidan Tahmazli 274701
+
+Algorithm: Bitonic sort
+Github repo: https://github.com/marini-pietro/ADS27_Group10_sort_BitonicSort
